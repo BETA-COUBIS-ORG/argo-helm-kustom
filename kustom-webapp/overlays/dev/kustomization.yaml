@@ -1,9 +1,9 @@
-bases:
-- ../../base
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+namespace: webapp-dev
 
-patches:
- - replicas.yaml
-
-configMapGenerator:
-- name: mykustom-map
-  env: config.properties
+patchesStrategicMerge:
+  - patches/deployment-replicas.yaml   # <-- file path(s), as strings
+  - patches/service-type.yaml
